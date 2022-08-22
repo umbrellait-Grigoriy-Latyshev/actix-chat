@@ -19,6 +19,8 @@ async fn main() -> std::io::Result<()> {
         .parse::<u16>()
         .expect("Cannot parse PORT as integer!");
 
+    println!("Chat server run at http://{}:{}", host, port.to_string());
+
     HttpServer::new(|| {
         App::new()
             // logging
