@@ -6,7 +6,6 @@ use crate::structs::test::TTT;
 pub async fn hello() -> impl Responder {
     let obj = TTT::new(10);
     HttpResponse::Ok().status(StatusCode::OK).json(obj)
-    
 }
 
 #[get("/echo/{name}")]
