@@ -5,9 +5,8 @@ pub struct TTT {
     sum: i32,
 }
 
-
 impl TTT {
-    pub fn new (value: i32) -> TTT {
-        TTT {sum: value}
+    pub fn new(value: i32) -> TTT {
+        TTT { sum: value }
     }
 }

@@ -1,7 +1,6 @@
-use actix_web::{HttpResponse, get, Responder, http::StatusCode, web};
+use actix_web::{get, http::StatusCode, web, HttpResponse, Responder};
 
 use crate::structs::test::TTT;
-
 
 #[get("/")]
 pub async fn hello() -> impl Responder {
