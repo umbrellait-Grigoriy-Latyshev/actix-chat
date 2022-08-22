@@ -1,25 +1,11 @@
-use actix_web::{get, http::StatusCode, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{App, HttpServer};
 
 use actix_web::middleware::Logger;
 use dotenv::dotenv;
 use env_logger::Env;
-use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]
-struct TTT {
-    sum: i32,
-}
-
-#[get("/")]
-async fn hello() -> impl Responder {
-    let obj = TTT { sum: 10 };
-    HttpResponse::Ok().status(StatusCode::OK).json(obj)
-}
-
-#[get("/echo/{name}")]
-async fn echo(name: web::Path<String>) -> impl Responder {
-    HttpResponse::Ok().body(name.to_string())
-}
+mod handlers;
+mod structs;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -32,8 +18,8 @@ async fn main() -> std::io::Result<()> {
             // logging
             .wrap(Logger::new("%a %{User-Agent}i %r %s, %T secs"))
             // API
-            .service(hello)
-            .service(echo)
+            .service(handlers::test::hello)
+            .service(handlers::test::echo)
     })
     .bind(("127.0.0.1", 8080))?
     .run()
