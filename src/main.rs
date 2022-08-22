@@ -28,7 +28,8 @@ async fn main() -> std::io::Result<()> {
             .service(handlers::test::hello)
             .service(handlers::test::echo)
     })
-    .bind((host, port))?
+    .bind((host, port))
+    .expect("host/addr already in use!")
     .run()
     .await
 }
