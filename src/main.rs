@@ -12,16 +12,12 @@ struct TTT {
 #[get("/")]
 async fn hello() -> impl Responder {
     let obj = TTT { sum: 10 };
-    HttpResponse::Ok().status(StatusCode::BAD_REQUEST).json(obj)
+    HttpResponse::Ok().status(StatusCode::OK).json(obj)
 }
 
 #[get("/echo/{name}")]
 async fn echo(name: web::Path<String>) -> impl Responder {
     HttpResponse::Ok().body(name.to_string())
-}
-
-async fn manual_hello() -> impl Responder {
-    HttpResponse::Ok().body("Hey there!")
 }
 
 #[actix_web::main]
@@ -31,12 +27,10 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             // logging
-            .wrap(Logger::default())
-            .wrap(Logger::new("%a %{User-Agent}i"))
+            .wrap(Logger::new("%a %{User-Agent}i %r %s, %T secs"))
             // API
             .service(hello)
             .service(echo)
-            .route("/hey", web::get().to(manual_hello))
     })
     .bind(("127.0.0.1", 8080))?
     .run()
