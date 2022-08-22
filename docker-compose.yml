@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: postgres:alpine
+    container_name: db
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./data/db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "nc", "-vz", "localhost", "5432" ]
+      interval: 10s
+      timeout: 10s
+      retries: 30
