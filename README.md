@@ -10,3 +10,7 @@ cd actix-chat
 cargo run -r 
 ```
 
+## VSCode dev containters
+
+Supported.
+
