@@ -10,7 +10,13 @@ cd actix-chat
 cargo run -r 
 ```
 
-## VSCode dev containters
+## Developing
 
-Supported.
+VSCode devcontainers supported.
 
+It's possible to use `cargo watch ...` to reload server after changes:
+
+```bash
+cargo install cargo-watch
+cargo watch -x "run --"
+```
