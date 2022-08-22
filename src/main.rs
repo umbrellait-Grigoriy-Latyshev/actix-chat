@@ -1,3 +1,6 @@
+#[macro_use]
+extern crate diesel;
+
 use actix_web::{web::Data, App, HttpServer};
 
 use actix_web::middleware::Logger;
@@ -6,7 +9,9 @@ use diesel::PgConnection;
 use dotenv::dotenv;
 use env_logger::Env;
 
+mod entities;
 mod handlers;
+mod schema;
 use std::env;
 
 pub type DbPool = Pool<ConnectionManager<PgConnection>>;

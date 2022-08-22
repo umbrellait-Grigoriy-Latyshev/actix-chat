@@ -1,4 +1,4 @@
-use actix::entities::message::Message;
+use crate::entities::message::Message;
 use actix_web::{get, http::StatusCode, post, web, HttpResponse, Responder};
 
 use crate::{
@@ -19,7 +19,7 @@ pub async fn post_message(info: web::Json<PostMessageDto>) -> impl Responder {
 async fn get_all_messages(
     connection: PooledConnection<ConnectionManager<PgConnection>>,
 ) -> Result<Vec<Message>, diesel::result::Error> {
-    use actix::schema::messages::dsl::*;
+    use crate::schema::messages::dsl::*;
     let result = messages.limit(5).load::<Message>(&connection);
     result
 }

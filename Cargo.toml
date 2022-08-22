@@ -1,7 +1,11 @@
 [package]
-name = "actix"
+name = "backend"
 version = "0.1.0"
 edition = "2021"
+authors = ["Grigory Latyshev"]
+description = "Pet Rust backend server with postres pooling"
+repository = "https://github.com/umbrellait-Grigoriy-Latyshev/actix-chat"
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
