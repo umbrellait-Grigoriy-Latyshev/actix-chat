@@ -27,7 +27,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(Logger::new("%a %{User-Agent}i %r %s, %T secs"))
             // API
             // post message
-            // read message by id
+            .service(handlers::messages::post_message)
             // read new messages
             // health
             .service(handlers::health::health)
