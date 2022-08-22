@@ -26,6 +26,8 @@ async fn main() -> std::io::Result<()> {
             // logging
             .wrap(Logger::new("%a %{User-Agent}i %r %s, %T secs"))
             // API
+            // get all messages
+            .service(handlers::messages::get_messages)
             // post message
             .service(handlers::messages::post_message)
             // read new messages

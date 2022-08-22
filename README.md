@@ -14,6 +14,12 @@ cargo run -r
 
 VSCode devcontainers supported.
 
+```
+docker-compose up -d
+cargo install diesel_cli --no-default-features --features postgres
+diesel setup
+```
+
 It's possible to use `cargo watch ...` to reload server after changes:
 
 ```bash

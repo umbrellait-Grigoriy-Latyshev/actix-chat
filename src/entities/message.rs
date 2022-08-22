@@ -1,8 +1,8 @@
-use serde::{ Serialize};
+use serde::Serialize;
 
-#[derive(Serialize, Debug)]
+#[derive(Serialize, Queryable, Debug)]
 pub struct Message {
-    id: u32,
-    actor: u32,
+    id: i32,
+    actor: i32,
     text: String,
 }
