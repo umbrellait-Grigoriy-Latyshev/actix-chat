@@ -5,7 +5,6 @@ use dotenv::dotenv;
 use env_logger::Env;
 
 mod handlers;
-mod structs;
 use std::env;
 
 #[actix_web::main]

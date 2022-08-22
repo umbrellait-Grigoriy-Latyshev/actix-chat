@@ -1,10 +1,14 @@
 use actix_web::{get, http::StatusCode, web, HttpResponse, Responder};
+use serde::Serialize;
 
-use crate::structs::test::TTT;
+#[derive(Serialize, Debug)]
+struct Test {
+    id: u32,
+}
 
 #[get("/")]
 pub async fn hello() -> impl Responder {
-    let obj = TTT::new(10);
+    let obj = Test { id: 1 };
     HttpResponse::Ok().status(StatusCode::OK).json(obj)
 }
 
