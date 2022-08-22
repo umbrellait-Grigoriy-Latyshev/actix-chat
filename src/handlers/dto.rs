@@ -1,9 +1,4 @@
-use serde::{Deserialize, Serialize};
-
-#[derive(Deserialize, Debug)]
-pub struct PostMessageDto {
-    pub message: String,
-}
+use serde::Serialize;
 
 #[derive(Serialize, Debug)]
 pub struct PostMessageDtoResponse {
@@ -11,7 +6,7 @@ pub struct PostMessageDtoResponse {
 }
 
 impl PostMessageDtoResponse {
-    pub fn new() -> PostMessageDtoResponse {
-        PostMessageDtoResponse { ok: true }
+    pub fn new(result: bool) -> PostMessageDtoResponse {
+        PostMessageDtoResponse { ok: result }
     }
 }
