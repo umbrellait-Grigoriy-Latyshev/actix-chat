@@ -12,9 +12,8 @@ use env_logger::Env;
 mod entities;
 mod handlers;
 mod schema;
+mod types;
 use std::env;
-
-pub type DbPool = Pool<ConnectionManager<PgConnection>>;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
