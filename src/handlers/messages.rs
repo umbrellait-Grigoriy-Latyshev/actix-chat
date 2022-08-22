@@ -18,10 +18,7 @@ async fn create_message(
     text: String,
 ) -> Result<usize, DieselError> {
     use crate::schema::messages;
-    let new_message = NewMessage {
-        actor: actor,
-        text: text,
-    };
+    let new_message = NewMessage { actor, text };
     diesel::insert_into(messages::table)
         .values(&new_message)
         .execute(&connection)
