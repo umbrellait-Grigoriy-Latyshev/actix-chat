@@ -26,8 +26,11 @@ async fn main() -> std::io::Result<()> {
             // logging
             .wrap(Logger::new("%a %{User-Agent}i %r %s, %T secs"))
             // API
-            .service(handlers::test::hello)
-            .service(handlers::test::echo)
+            // post message
+            // read message by id
+            // read new messages
+            // health
+            .service(handlers::health::health)
     })
     .bind((host, port))
     .expect("host/addr already in use!")
