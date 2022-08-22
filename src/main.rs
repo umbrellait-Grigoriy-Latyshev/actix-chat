@@ -1,6 +1,7 @@
 use actix_web::{get, http::StatusCode, web, App, HttpResponse, HttpServer, Responder};
 
 use actix_web::middleware::Logger;
+use dotenv::dotenv;
 use env_logger::Env;
 use serde::{Deserialize, Serialize};
 
@@ -22,6 +23,8 @@ async fn echo(name: web::Path<String>) -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv().ok();
+
     env_logger::init_from_env(Env::default().default_filter_or("info"));
 
     HttpServer::new(|| {
