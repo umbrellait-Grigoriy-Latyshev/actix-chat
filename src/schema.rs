@@ -3,5 +3,6 @@ table! {
         id -> Integer,
         actor -> Integer,
         text -> Text,
+        created_at -> Timestamp,
     }
 }
