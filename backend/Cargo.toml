@@ -18,7 +18,3 @@ serde = { version = "1.0", features = ["derive"] }
 env_logger = "0.9.0"
 chrono = "0.4.22"
 
-[profile.release]
-lto = true          # Enable Link Time Optimization
-codegen-units = 1   # Reduce number of codegen units to increase optimizations.
-strip = true        # Strip symbols from binary*
