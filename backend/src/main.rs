@@ -43,18 +43,21 @@ async fn main() -> std::io::Result<()> {
             .wrap(Logger::new("%a %{User-Agent}i %r %s, %T secs"))
             // API
             // post message
-            .service(handlers::messages::post_message)
-            // is user exists
-            .service(handlers::messages::is_user_exists)
             .service(
-                web::scope("/messages")
-                    // get all messages
-                    .service(handlers::messages::get_messages)
-                    // get new messages
-                    .service(handlers::messages::get_new_messages),
+                web::scope("/api")
+                    .service(handlers::messages::post_message)
+                    // is user exists
+                    .service(handlers::messages::is_user_exists)
+                    .service(
+                        web::scope("/messages")
+                            // get all messages
+                            .service(handlers::messages::get_messages)
+                            // get new messages
+                            .service(handlers::messages::get_new_messages),
+                    )
+                    // health
+                    .service(handlers::health::health),
             )
-            // health
-            .service(handlers::health::health)
     })
     .bind((host, port))
     .expect("host/addr already in use!")

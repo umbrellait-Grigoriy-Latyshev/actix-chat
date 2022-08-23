@@ -110,7 +110,7 @@ async fn get_newest_messages(
         .load::<Message>(&connection)
 }
 
-#[get("user/{id}")]
+#[get("/user/{id}")]
 pub async fn is_user_exists(pool: web::Data<DbPool>, req: HttpRequest) -> impl Responder {
     let connection = match pool.get() {
         Ok(conn) => conn,

@@ -8,5 +8,7 @@ edition = "2021"
 [dependencies]
 lib = { path = "../lib" }
 yew = "0.19.3"
+gloo-net = "0.2.4"
+wasm-bindgen-futures = "0.4"
 serde = { version = "1.0", features = ["derive"] }
 

@@ -40,11 +40,10 @@ Follow https://yew.rs/docs/tutorial
 
 ---
 
-It's possible to use `cargo watch ...` to reload server after changes:
+Run project
 
 ```bash
-cargo install cargo-watch
-cargo watch -x "run --bin backend"
-cargo watch -x "run --bin frontend"
+cargo run --bin backend
+cd frontend
+trunk serve --open --proxy-backend=http://localhost:9000/api/
 ```
-###
