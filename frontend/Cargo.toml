@@ -7,4 +7,6 @@ edition = "2021"
 
 [dependencies]
 lib = { path = "../lib" }
-yew = "0.19"
+yew = "0.19.3"
+serde = { version = "1.0", features = ["derive"] }
+
