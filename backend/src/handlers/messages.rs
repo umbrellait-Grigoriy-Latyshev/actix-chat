@@ -144,8 +144,5 @@ async fn _is_user_exists(connection: PoolConnection, user_id: i32) -> bool {
     let record = messages
         .filter(actor.eq(user_id))
         .first::<Message>(&connection);
-    match record {
-        Ok(_) => true,
-        Err(_) => false,
-    }
+    record.is_ok()
 }
