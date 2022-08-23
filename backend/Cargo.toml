@@ -1,0 +1,23 @@
+[package]
+name = "backend"
+version = "0.1.0"
+edition = "2021"
+authors = ["Grigory Latyshev"]
+description = "Pet Rust backend server with postres pooling"
+repository = "https://github.com/umbrellait-Grigoriy-Latyshev/actix-chat"
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dotenv = "0.15.0"
+actix-web = "4"
+diesel = { version = "1.4.4", features = ["postgres", "r2d2", "chrono"] }
+serde = { version = "1.0", features = ["derive"] }
+env_logger = "0.9.0"
+chrono = "0.4.22"
+
+[profile.release]
+lto = true          # Enable Link Time Optimization
+codegen-units = 1   # Reduce number of codegen units to increase optimizations.
+strip = true        # Strip symbols from binary*
