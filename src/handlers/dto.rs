@@ -10,3 +10,14 @@ impl PostMessageDtoResponse {
         PostMessageDtoResponse { ok: result }
     }
 }
+
+#[derive(Serialize, Debug)]
+pub struct UserExistsDto {
+    exists: bool,
+}
+
+impl UserExistsDto {
+    pub fn new(result: bool) -> UserExistsDto {
+        UserExistsDto { exists: result }
+    }
+}

@@ -44,6 +44,8 @@ async fn main() -> std::io::Result<()> {
             // API
             // post message
             .service(handlers::messages::post_message)
+            // is user exists
+            .service(handlers::messages::is_user_exists)
             .service(
                 web::scope("/messages")
                     // get all messages

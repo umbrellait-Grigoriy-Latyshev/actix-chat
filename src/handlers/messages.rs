@@ -1,5 +1,6 @@
 use crate::{
     entities::message::{Message, NewMessage},
+    handlers::dto::UserExistsDto,
     types::{DbPool, DieselError, PoolConnection},
 };
 use actix_web::{get, http::StatusCode, post, web, HttpRequest, HttpResponse, Responder};
@@ -109,4 +110,44 @@ async fn get_newest_messages(
     messages
         .filter(created_at.gt(NaiveDateTime::from_timestamp(timestamp, 0)))
         .load::<Message>(&connection)
+}
+
+#[get("user/{id}")]
+pub async fn is_user_exists(pool: web::Data<DbPool>, req: HttpRequest) -> impl Responder {
+    let connection = match pool.get() {
+        Ok(conn) => conn,
+        Err(_) => {
+            return HttpResponse::Ok()
+                .status(StatusCode::INTERNAL_SERVER_ERROR)
+                .body("Cannot get connection from pool")
+        }
+    };
+    let user_id = match req.match_info().get("id").unwrap().parse::<i32>() {
+        Ok(ts) => ts,
+        Err(_) => {
+            return HttpResponse::Ok()
+                .status(StatusCode::BAD_REQUEST)
+                .body("Invalid userId")
+        }
+    };
+    if user_id <= 0 {
+        return HttpResponse::Ok()
+            .status(StatusCode::BAD_REQUEST)
+            .body("Invalid userId");
+    }
+
+    let is_exists = _is_user_exists(connection, user_id).await;
+    HttpResponse::Ok().json(UserExistsDto::new(is_exists))
+}
+
+async fn _is_user_exists(connection: PoolConnection, user_id: i32) -> bool {
+    use crate::diesel::ExpressionMethods;
+    use crate::schema::messages::dsl::*;
+    let record = messages
+        .filter(actor.eq(user_id))
+        .first::<Message>(&connection);
+    match record {
+        Ok(_) => true,
+        Err(_) => false,
+    }
 }
