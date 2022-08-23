@@ -10,6 +10,7 @@ repository = "https://github.com/umbrellait-Grigoriy-Latyshev/actix-chat"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+lib = { path = "../lib" }
 dotenv = "0.15.0"
 actix-web = "4"
 diesel = { version = "1.4.4", features = ["postgres", "r2d2", "chrono"] }

@@ -1,5 +1,6 @@
 [workspace]
 members = [
     "backend",
-    "frontend"
+    "frontend",
+    "lib"
 ]
