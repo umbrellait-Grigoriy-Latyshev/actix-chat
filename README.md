@@ -26,6 +26,20 @@ cargo run -r --bin backend
 
 VSCode devcontainers supported.
 
+### Backend
+
+Update .env file
+
+```bash
+cargo run --bin backend
+```
+
+### Frontend
+
+Follow https://yew.rs/docs/tutorial
+
+---
+
 It's possible to use `cargo watch ...` to reload server after changes:
 
 ```bash
@@ -33,3 +47,4 @@ cargo install cargo-watch
 cargo watch -x "run --bin backend"
 cargo watch -x "run --bin frontend"
 ```
+###
