@@ -1,6 +1,7 @@
 #[macro_use]
 extern crate diesel;
 
+use actix_web::web;
 use actix_web::{web::Data, App, HttpServer};
 
 use actix_web::middleware::Logger;
@@ -41,11 +42,15 @@ async fn main() -> std::io::Result<()> {
             // logging
             .wrap(Logger::new("%a %{User-Agent}i %r %s, %T secs"))
             // API
-            // get all messages
-            .service(handlers::messages::get_messages)
             // post message
             .service(handlers::messages::post_message)
-            // read new messages
+            .service(
+                web::scope("/messages")
+                    // get all messages
+                    .service(handlers::messages::get_messages)
+                    // get new messages
+                    .service(handlers::messages::get_new_messages),
+            )
             // health
             .service(handlers::health::health)
     })
