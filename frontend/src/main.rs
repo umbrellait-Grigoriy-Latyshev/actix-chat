@@ -3,6 +3,9 @@ use serde::Deserialize;
 use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
 
+use crate::components::chat_message::*;
+mod components;
+
 #[derive(Clone, PartialEq, Deserialize)]
 struct Message {
     actor: i32,
@@ -27,7 +30,7 @@ fn message_list(MessageListProps { messages }: &MessageListProps) -> Html {
         .iter()
         .map(|message| {
             html! {
-                <p>{format!("{}", message.text)}</p>
+                <ChatMessage author={message.actor} text={message.text.clone()}></ChatMessage>
             }
         })
         .collect()
@@ -54,7 +57,7 @@ fn app() -> Html {
 
     html! {
         <>
-            <h1>{ "Simple Rust chat" }</h1>
+        <components::header::Header/>
             <MessageList messages={(*messages).clone()} />
         </>
     }
