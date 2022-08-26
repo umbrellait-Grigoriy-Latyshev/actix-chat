@@ -2,10 +2,20 @@ use crate::{
     entities::message::{Message, NewMessage},
     types::{DbPool, DieselError, PoolConnection},
 };
-use actix_web::{get, http::StatusCode, post, web, HttpRequest, HttpResponse, Responder};
+use actix_web::{get, http::StatusCode, post, web, HttpRequest, HttpResponse, Responder, Scope};
 use chrono::NaiveDateTime;
 use diesel::{QueryDsl, RunQueryDsl};
 use lib::dto::{PostMessageDtoResponse, UserExistsDto};
+
+use super::scope;
+
+pub fn api() -> Scope {
+    scope(Some("messages"))
+        .service(post_message)
+        .service(get_messages)
+        .service(get_new_messages)
+        .service(is_user_exists)
+}
 
 async fn get_all_messages(connection: PoolConnection) -> Result<Vec<Message>, DieselError> {
     use crate::schema::messages::dsl::*;

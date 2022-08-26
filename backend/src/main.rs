@@ -1,7 +1,6 @@
 #[macro_use]
 extern crate diesel;
 
-use actix_web::web;
 use actix_web::{web::Data, App, HttpServer};
 
 use actix_web::middleware::Logger;
@@ -15,6 +14,8 @@ mod handlers;
 mod schema;
 mod types;
 use std::env;
+
+use crate::handlers::api;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -37,27 +38,9 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(move || {
         App::new()
-            // add r2d2 pool
             .app_data(Data::new(pool.clone()))
-            // logging
             .wrap(Logger::new("%a %{User-Agent}i %r %s, %T secs"))
-            // API
-            // post message
-            .service(
-                web::scope("/api")
-                    .service(handlers::messages::post_message)
-                    // is user exists
-                    .service(handlers::messages::is_user_exists)
-                    .service(
-                        web::scope("/messages")
-                            // get all messages
-                            .service(handlers::messages::get_messages)
-                            // get new messages
-                            .service(handlers::messages::get_new_messages),
-                    )
-                    // health
-                    .service(handlers::health::health),
-            )
+            .service(api())
     })
     .bind((host, port))
     .expect("host/addr already in use!")
