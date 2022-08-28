@@ -1,17 +1,23 @@
 use yew::{function_component, html, Properties};
 
+use crate::api::Message;
+
 #[derive(Properties, PartialEq, Eq)]
 pub struct ChatMessageProps {
-    pub author: i32,
-    pub text: String,
+    pub message: Message,
 }
 
 #[function_component(ChatMessage)]
-pub fn _chat_message(ChatMessageProps { author, text }: &ChatMessageProps) -> Html {
+pub fn _chat_message(ChatMessageProps { message }: &ChatMessageProps) -> Html {
+    let label = format!(
+        "User#{} at {}",
+        message.get_actor(),
+        message.get_created_at()
+    );
     html! {
         <div class="ui segment">
-        <a class="ui red ribbon label">{"User#"}{author}</a>
-        <span>{text}</span>
+        <a class="ui red ribbon label">{label}</a>
+        <span>{message.get_text()}</span>
         </div>
     }
 }

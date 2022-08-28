@@ -31,7 +31,7 @@ pub fn message_list(_props: &MessageListProps) -> Html {
         .iter()
         .map(|message| {
             html! {
-                <ChatMessage author={message.get_actor()} text={message.get_text()}></ChatMessage>
+                <ChatMessage message={message.clone()}></ChatMessage>
             }
         })
         .collect()

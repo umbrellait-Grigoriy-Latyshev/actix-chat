@@ -1,13 +1,16 @@
+use chrono::NaiveDateTime;
 use gloo_net::{
     http::{Request, Response},
     Error,
 };
 use serde::{Deserialize, Serialize};
+use yew::Properties;
 
-#[derive(Clone, PartialEq, Eq, Deserialize)]
+#[derive(Properties, Clone, PartialEq, Eq, Deserialize)]
 pub struct Message {
     actor: i32,
     text: String,
+    created_at: i64,
 }
 
 impl Message {
@@ -17,6 +20,12 @@ impl Message {
 
     pub fn get_text(&self) -> String {
         self.text.clone()
+    }
+
+    pub fn get_created_at(&self) -> String {
+        NaiveDateTime::from_timestamp(self.created_at, 0)
+            .format("%a %b %e %T %Y")
+            .to_string()
     }
 }
 
