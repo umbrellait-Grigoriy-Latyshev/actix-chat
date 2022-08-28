@@ -1,12 +1,18 @@
 use wasm_bindgen_futures::spawn_local;
-use yew::{function_component, html, Callback};
+use yew::{function_component, html, Callback, Properties};
+
+#[derive(Properties, PartialEq, Eq)]
+pub struct InputBtnProps {
+    pub my_id: i64,
+}
 
 #[function_component(InputBtn)]
-pub fn _sendbtn() -> Html {
+pub fn _sendbtn(props: &InputBtnProps) -> Html {
+    let actor_id = props.my_id;
     let onclick = {
         Callback::from(move |_| {
             spawn_local(async move {
-                crate::api::post_messages(12, "text 12".to_string())
+                crate::api::post_messages(actor_id, "text 12".to_string())
                     .await
                     .unwrap();
             });

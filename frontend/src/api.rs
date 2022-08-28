@@ -8,13 +8,13 @@ use yew::Properties;
 
 #[derive(Properties, Clone, PartialEq, Eq, Deserialize)]
 pub struct Message {
-    actor: i32,
+    actor: i64,
     text: String,
     created_at: i64,
 }
 
 impl Message {
-    pub fn get_actor(&self) -> i32 {
+    pub fn get_actor(&self) -> i64 {
         self.actor
     }
 
@@ -37,11 +37,11 @@ pub async fn api_messages() -> Result<Vec<Message>, Error> {
 
 #[derive(Serialize)]
 pub struct NewMessage {
-    pub actor: i32,
+    pub actor: i64,
     pub text: String,
 }
 
-pub async fn post_messages(actor: i32, text: String) -> Result<Response, Error> {
+pub async fn post_messages(actor: i64, text: String) -> Result<Response, Error> {
     let url = "/api/messages/message";
     let body = NewMessage {
         actor,

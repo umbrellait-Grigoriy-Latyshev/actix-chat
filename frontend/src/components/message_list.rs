@@ -5,10 +5,12 @@ use super::chat_message::ChatMessage;
 use crate::api::Message;
 
 #[derive(Properties, PartialEq, Eq)]
-pub struct MessageListProps;
+pub struct MessageListProps {
+    pub my_id: i64,
+}
 
 #[function_component(MessageList)]
-pub fn message_list(_props: &MessageListProps) -> Html {
+pub fn message_list(props: &MessageListProps) -> Html {
     let messages = use_state(Vec::<Message>::new);
 
     {
@@ -31,7 +33,7 @@ pub fn message_list(_props: &MessageListProps) -> Html {
         .iter()
         .map(|message| {
             html! {
-                <ChatMessage message={message.clone()}></ChatMessage>
+                <ChatMessage my_id={props.my_id} message={message.clone()}></ChatMessage>
             }
         })
         .collect()
