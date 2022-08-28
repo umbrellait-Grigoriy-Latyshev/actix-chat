@@ -1,5 +1,5 @@
 use wasm_bindgen_futures::spawn_local;
-use yew::{function_component, html, use_effect, use_state, Properties};
+use yew::{function_component, html, use_effect_with_deps, use_state, Properties};
 
 use super::chat_message::ChatMessage;
 use crate::api::Message;
@@ -13,15 +13,18 @@ pub fn message_list(_props: &MessageListProps) -> Html {
 
     {
         let messages = messages.clone();
-        use_effect(move || {
-            let messages = messages;
+        use_effect_with_deps(
+            move |_| {
+                let messages = messages;
 
-            spawn_local(async move {
-                let fetched = crate::api::api_messages().await.unwrap();
-                messages.set(fetched);
-            });
-            || ()
-        });
+                spawn_local(async move {
+                    let fetched = crate::api::api_messages().await.unwrap();
+                    messages.set(fetched);
+                });
+                || ()
+            },
+            (),
+        );
     }
 
     messages
