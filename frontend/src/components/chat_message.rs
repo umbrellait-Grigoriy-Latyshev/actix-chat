@@ -1,6 +1,6 @@
 use yew::{function_component, html, Properties};
 
-#[derive(Properties, PartialEq)]
+#[derive(Properties, PartialEq, Eq)]
 pub struct ChatMessageProps {
     pub author: i32,
     pub text: String,
